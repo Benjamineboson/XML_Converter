@@ -55,20 +55,22 @@ public class Converter {
     private void parseTagsAndValues(){
         List<String> tempValues = new ArrayList<>();
         List<String> tempTags = new ArrayList<>();
-        String personTagIdentifier = "Pp";
-        for (int i = 0; i < linesToBeConverted.size(); i++) {
-            if (i > 0 && personTagIdentifier.contains(String.valueOf(linesToBeConverted.get(i).charAt(0)))){
-                tags.add(tempTags);
-                values.add(tempValues);
-                tempTags = new ArrayList<>();
-                tempValues = new ArrayList<>();
-            }else if (i == linesToBeConverted.size()-1){
-                tags.add(tempTags);
-                values.add(tempValues);
-            }
-            if (linesToBeConverted.get(i).length() > 2 && linesToBeConverted.get(i).charAt(1) == '|'){
-                tempTags.add(String.valueOf(linesToBeConverted.get(i).charAt(0)));
-                tempValues.add(linesToBeConverted.get(i).substring(2)+" ");
+        String personTagIdentifier = "P|p|";
+        if (personTagIdentifier.contains(linesToBeConverted.get(0).charAt(0)+""+linesToBeConverted.get(0).charAt(1))) {
+            for (int i = 0; i < linesToBeConverted.size(); i++) {
+                if (i > 0 && personTagIdentifier.contains(String.valueOf(linesToBeConverted.get(i).charAt(0)))) {
+                    tags.add(tempTags);
+                    values.add(tempValues);
+                    tempTags = new ArrayList<>();
+                    tempValues = new ArrayList<>();
+                } else if (i == linesToBeConverted.size() - 1) {
+                    tags.add(tempTags);
+                    values.add(tempValues);
+                }
+                if (linesToBeConverted.get(i).length() > 2 && linesToBeConverted.get(i).charAt(1) == '|') {
+                    tempTags.add(String.valueOf(linesToBeConverted.get(i).charAt(0)));
+                    tempValues.add(linesToBeConverted.get(i).substring(2) + " ");
+                }
             }
         }
     }
