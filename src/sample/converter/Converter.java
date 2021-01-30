@@ -56,7 +56,7 @@ public class Converter {
         List<String> tempValues = new ArrayList<>();
         List<String> tempTags = new ArrayList<>();
         String personTagIdentifier = "P|p|";
-        if (personTagIdentifier.contains(linesToBeConverted.get(0).charAt(0)+""+linesToBeConverted.get(0).charAt(1))) {
+        if (linesToBeConverted.size() > 1 && personTagIdentifier.contains(linesToBeConverted.get(0).charAt(0)+""+linesToBeConverted.get(0).charAt(1))) {
             for (int i = 0; i < linesToBeConverted.size(); i++) {
                 if (i > 0 && personTagIdentifier.contains(String.valueOf(linesToBeConverted.get(i).charAt(0)))) {
                     tags.add(tempTags);
@@ -126,8 +126,10 @@ public class Converter {
         Element firstname = doc.createElement("firstname");
         Element lastname = doc.createElement("lastname");
         values = fillEmptyLines(values);
-        firstname.appendChild(doc.createTextNode(values[0]));
-        lastname.appendChild(doc.createTextNode(values[1]));
+        if (values.length > 0){
+            firstname.appendChild(doc.createTextNode(values[0]));
+            if (values.length > 1) lastname.appendChild(doc.createTextNode(values[1]));
+        }
         return Arrays.asList(firstname,lastname);
     }
 
